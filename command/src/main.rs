@@ -282,7 +282,7 @@ fn setup(mut config: Config) -> std::io::Result<()> {
     create_placeholder_dirs();
 
     let mut repos_to_clone: Vec<Repository> = vec![
-        Repository::new("lichess-org", "lila"),
+        Repository::new("ProjectHSI", "lila"),
         Repository::new("lichess-org", "lila-ws"),
     ];
 
@@ -718,11 +718,11 @@ mod tests {
 
     #[test]
     fn test_repository() {
-        let repo = Repository::new("lichess-org", "lila");
-        assert_eq!(repo.org, "lichess-org");
+        let repo = Repository::new("ProjectHSI", "lila");
+        assert_eq!(repo.org, "ProjectHSI");
         assert_eq!(repo.project, "lila");
-        assert_eq!(repo.full_name(), "lichess-org/lila");
-        assert_eq!(repo.url(), "https://github.com/lichess-org/lila");
+        assert_eq!(repo.full_name(), "ProjectHSI/lila");
+        assert_eq!(repo.url(), "https://github.com/ProjectHSI/lila");
         assert_eq!(repo.clone_path(), Path::new("repos/lila"));
     }
 
