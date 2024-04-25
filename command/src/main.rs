@@ -589,8 +589,8 @@ fn hostname(mut config: Config) -> std::io::Result<()> {
         selection => selection.to_string(),
     };
 
-    config.lila_domain = Some(format!("{hostname}:8080"));
-    config.lila_url = Some(format!("http://{hostname}:8080"));
+    config.lila_domain = Some(format!("{hostname}"));
+    config.lila_url = Some(format!("http://{hostname}"));
     config.save()?;
 
     outro(format!("✔ Local Lichess URL set to http://{hostname}:8080"))
