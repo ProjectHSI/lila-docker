@@ -339,7 +339,7 @@ fn create_placeholder_dirs() {
     // otherwise the directories will be created by Docker
     // when the volumes are mounted and they may be owned by root
     [
-        Repository::new("lichess-org", "lila"),
+        Repository::new("ProjectHSI", "lila"),
         Repository::new("lichess-org", "lila-ws"),
         Repository::new("lichess-org", "lila-db-seed"),
         Repository::new("lichess-org", "lifat"),
