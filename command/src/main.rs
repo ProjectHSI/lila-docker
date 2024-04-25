@@ -593,7 +593,7 @@ fn hostname(mut config: Config) -> std::io::Result<()> {
     config.lila_url = Some(format!("http://{hostname}"));
     config.save()?;
 
-    outro(format!("✔ Local Lichess URL set to http://{hostname}:8080"))
+    outro(format!("✔ Local Lichess URL set to http://{hostname}"))
 }
 
 fn mobile_setup(mut config: Config) -> std::io::Result<()> {
