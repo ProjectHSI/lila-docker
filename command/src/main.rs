@@ -247,6 +247,14 @@ fn setup(mut config: Config) -> std::io::Result<()> {
         true
     });
 
+    if Gitpod::is_host()
+        && confirm("By default, only this browser session can access your Gitpod development site.\nWould you like it to be accessible to other clients?")
+            .initial_value(false)
+            .interact()?
+    {
+        gitpod_public()?;
+    }
+
     config.compose_profiles = Some(
         services
             .iter()
@@ -299,7 +307,7 @@ fn setup(mut config: Config) -> std::io::Result<()> {
     repos_to_clone.extend(optional_repos);
 
     for repo in repos_to_clone {
-        let mut progress = spinner();
+        let progress = spinner();
         progress.start(&format!("Cloning {}...", repo.full_name()));
 
         if repo.clone_path().read_dir()?.next().is_some() {
@@ -373,8 +381,8 @@ fn gitpod_checkout_pr() -> std::io::Result<()> {
     let pr_url = format!("https://github.com/lichess-org/lila/pull/{pr_no}");
     let branch_name = format!("pr-{pr_no}");
 
-    let mut progress = spinner();
-    progress.start(&format!("Checking out lila PR #{pr_no}: {pr_url}..."));
+    let progress = spinner();
+    progress.start(format!("Checking out lila PR #{pr_no}: {pr_url}..."));
 
     let mut cmd = Command::new("git");
     cmd.current_dir("repos/lila")
@@ -692,7 +700,7 @@ fn gitpod_public() -> std::io::Result<()> {
         ));
     }
 
-    let mut progress = spinner();
+    let progress = spinner();
     progress.start("Making http port 8080 publicly accessible...");
 
     let mut cmd = Command::new("gp");

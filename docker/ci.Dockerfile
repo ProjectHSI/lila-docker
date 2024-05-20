@@ -1,9 +1,10 @@
 ##################################################################################
 FROM node:lts-bookworm AS node
 
-RUN npm install --global pnpm@8
 COPY repos/lila /lila
 COPY conf/ci.conf /lila/conf/application.conf
+ENV COREPACK_ENABLE_DOWNLOAD_PROMPT=0
+RUN corepack enable
 RUN /lila/ui/build --clean-build --debug
 
 ##################################################################################
@@ -30,14 +31,14 @@ RUN mongod --fork --logpath /var/log/mongodb/mongod.log --dbpath /seeded \
         --tokens
 
 ##################################################################################
-FROM sbtscala/scala-sbt:eclipse-temurin-alpine-21.0.2_13_1.9.9_3.4.1 AS lilawsbuilder
+FROM sbtscala/scala-sbt:eclipse-temurin-alpine-21.0.2_13_1.10.0_3.4.2 AS lilawsbuilder
 
 COPY repos/lila-ws /lila-ws
 WORKDIR /lila-ws
 RUN sbt stage
 
 ##################################################################################
-FROM sbtscala/scala-sbt:eclipse-temurin-alpine-21.0.2_13_1.9.9_3.4.1 AS lilabuilder
+FROM sbtscala/scala-sbt:eclipse-temurin-alpine-21.0.2_13_1.10.0_3.4.2 AS lilabuilder
 
 COPY --from=node /lila /lila
 WORKDIR /lila
